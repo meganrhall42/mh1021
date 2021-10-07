@@ -12,7 +12,9 @@ The tools available for rental are as follows:
 where..
 
 Tool Code - Unique identifier for a tool instance
+
 Brand - The brand of the ladder, chain saw or jackhammer.
+
 Tool Type - The type of tool. The type also specifies the daily rental charge, and the days for which the daily
 rental charge applies:
 
@@ -30,3 +32,9 @@ Friday before, if Sunday, then Monday after)
 2. Labor Day - First Monday in September
 
 
+***
+
+Time Spent:
+
+..* October 3rd: 1 hour (including computer setup)
+..* October 6th: 2 hours (project structure, objects, unit tests)

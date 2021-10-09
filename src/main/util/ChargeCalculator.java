@@ -1,40 +1,39 @@
 package main.util;
 
-import main.model.Checkout;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class ChargeCalculator {
-
-	/*
-	 * Daily rental charge is amount per day, specified by the tool type.
-	 */
-	public static double calculateDailyRentalCharge(Checkout checkout) {
-		
-		return 0;
-	}
 	
 	/*
 	 * Pre-discount charge is calculated as charge days X daily charge. Resulting total rounded 
 	 * half up to cents
 	 */
-	public static double calculatePreDiscountCharge(Checkout checkout) {
+	public static double calculatePreDiscountCharge(int chargeDays, double dailyCharge) {
 		
-		return 0;
+		return (chargeDays * dailyCharge);
 	}
 	
 	/*
 	 * Discount amount - calculated from discount % and pre-discount charge. Resulting amount rounded
 	 * half up to cents
 	 */
-	public static double calculateDiscountAmount(Checkout checkout) {
+	public static double calculateDiscountAmount(int discount, double preDiscountCharge) {
+		BigDecimal convertedDiscount = BigDecimal.valueOf(discount);
+		BigDecimal convertedPreDiscountCharge = BigDecimal.valueOf(preDiscountCharge);
 		
-		return 0;
+		BigDecimal discountAsPercent = convertedDiscount.divide(BigDecimal.valueOf(100));
+		BigDecimal unrounded = discountAsPercent.multiply(convertedPreDiscountCharge);
+		BigDecimal rounded = unrounded.setScale(2, RoundingMode.HALF_UP);
+		
+		return rounded.doubleValue();
 	}
 	
 	/*
 	 * Final charge - Calculated as pre-discount charge - discount amount.
 	 */
-	public static double calculateFinalCharge(Checkout checkout) {
+	public static double calculateFinalCharge(double preDiscountCharge, double discountAmount) {
 		
-		return 0;
+		return (preDiscountCharge - discountAmount);
 	}
 }

@@ -1,5 +1,6 @@
 package test;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import main.model.Checkout;
@@ -8,45 +9,48 @@ import main.util.ChargeCalculator;
 public class ChargeCalculatorTest {
 	
 	@Test
-	public void testCalculateDailyRentalChargeLadder() {
-		Checkout checkout = new Checkout("LADW", "7/2/20", 3, 10);
-		double dailyRentalCharge = ChargeCalculator.calculateDailyRentalCharge(checkout);
-	}
-	
-	@Test
-	public void testCalculateDailyRentalChargeChainsaw() {
-		Checkout checkout = new Checkout("CHNS", "7/2/15", 5, 25);
-		double dailyRentalCharge = ChargeCalculator.calculateDailyRentalCharge(checkout);
-	}
-	
-	@Test
-	public void testCalculateDailyRentalChargeJackhammer() {
-		Checkout checkout = new Checkout("JAKD", "9/3/15", 6, 0);
-		double dailyRentalCharge = ChargeCalculator.calculateDailyRentalCharge(checkout);
-	}
-	
-	@Test
 	public void testCalculatePreDiscountCharge () {
-		Checkout checkout = new Checkout("LADW", "7/2/20", 3, 10);
-		double preDiscountAmount = ChargeCalculator.calculatePreDiscountCharge(checkout);
+		int chargeDays = 3;
+		double dailyCharge = 2.99;
+		double preDiscountAmount = ChargeCalculator.calculatePreDiscountCharge(chargeDays, dailyCharge);
+		
+		Assert.assertEquals(8.97, preDiscountAmount, 0);
 	}
 	
 	@Test
 	public void testCalculateDiscountAmount () {
-		Checkout checkout = new Checkout("LADW", "7/2/20", 3, 10);
-		double discountAmount = ChargeCalculator.calculateDiscountAmount(checkout);
+		int discount = 10;
+		double preDiscountCharge = 8.97;
+		double discountAmount = ChargeCalculator.calculateDiscountAmount(discount, preDiscountCharge);
+		
+		Assert.assertEquals(0.9, discountAmount, 0);
 	}
 	
 	@Test
 	public void testCalculateDiscountAmountNoDiscount () {
-		Checkout checkout = new Checkout("JAKD", "9/3/15", 6, 0);
-		double discountAmount = ChargeCalculator.calculateDiscountAmount(checkout);
+		int discount = 0;
+		double preDiscountCharge = 8.97;
+		double discountAmount = ChargeCalculator.calculateDiscountAmount(discount, preDiscountCharge);
+		
+		Assert.assertEquals(0, discountAmount, 0);
 	}
 	
 	@Test
 	public void testCalculateFinalCharge () {
-		Checkout checkout = new Checkout("LADW", "7/2/20", 3, 10);
-		double finalCharge = ChargeCalculator.calculateFinalCharge(checkout);
+		double preDiscountCharge = 8.97;
+		double discountAmount = .9;
+		double finalCharge = ChargeCalculator.calculateFinalCharge(preDiscountCharge, discountAmount);
+		
+		Assert.assertEquals(8.07, finalCharge, 0);
+	}
+	
+	@Test
+	public void testCalculateFinalChargeNoDiscount () {
+		double preDiscountCharge = 8.97;
+		double discountAmount = 0.0;
+		double finalCharge = ChargeCalculator.calculateFinalCharge(preDiscountCharge, discountAmount);
+		
+		Assert.assertEquals(8.97, finalCharge, 0);
 	}
 	
 

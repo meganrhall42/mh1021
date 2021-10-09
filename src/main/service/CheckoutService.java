@@ -7,6 +7,7 @@ import main.exceptions.DiscountException;
 import main.model.AvailableTool;
 import main.model.Checkout;
 import main.model.RentalAgreement;
+import main.model.ToolType;
 import main.util.ChargeCalculator;
 import main.util.DateCalculator;
 
@@ -23,12 +24,13 @@ public class CheckoutService {
 	private static RentalAgreement generateRentalAgreement(Checkout checkout) {
 		
 		AvailableTool selectedtool = AvailableTool.valueOf(checkout.getToolCode());
+		ToolType toolType = selectedtool.getType();
 		LocalDate dueDate = DateCalculator.calculateDueDate(checkout);
-		double dailyRentalCharge = ChargeCalculator.calculateDailyRentalCharge(checkout);
+		double dailyRentalCharge = toolType.getDailyCharge();
 		int chargeDays = DateCalculator.calculateChargeDays(checkout);
-		double preDiscountCharge = ChargeCalculator.calculatePreDiscountCharge(checkout);
-		double discountAmount = ChargeCalculator.calculateDiscountAmount(checkout);
-		double finalCharge = ChargeCalculator.calculateFinalCharge(checkout);
+		double preDiscountCharge = ChargeCalculator.calculatePreDiscountCharge(chargeDays, dailyRentalCharge);
+		double discountAmount = ChargeCalculator.calculateDiscountAmount(checkout.getDiscount(), preDiscountCharge);
+		double finalCharge = ChargeCalculator.calculateFinalCharge(preDiscountCharge, discountAmount);
 		
 		RentalAgreement agreement = new RentalAgreement(selectedtool, checkout, dueDate, dailyRentalCharge,
 				chargeDays, preDiscountCharge, discountAmount, finalCharge);

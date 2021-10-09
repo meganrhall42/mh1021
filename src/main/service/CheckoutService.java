@@ -27,7 +27,7 @@ public class CheckoutService {
 		ToolType toolType = selectedtool.getType();
 		LocalDate dueDate = DateCalculator.calculateDueDate(checkout);
 		double dailyRentalCharge = toolType.getDailyCharge();
-		int chargeDays = DateCalculator.calculateChargeDays(checkout);
+		int chargeDays = DateCalculator.calculateChargeDays(checkout.getCheckoutDate(), dueDate, toolType);
 		double preDiscountCharge = ChargeCalculator.calculatePreDiscountCharge(chargeDays, dailyRentalCharge);
 		double discountAmount = ChargeCalculator.calculateDiscountAmount(checkout.getDiscount(), preDiscountCharge);
 		double finalCharge = ChargeCalculator.calculateFinalCharge(preDiscountCharge, discountAmount);

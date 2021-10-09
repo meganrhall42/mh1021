@@ -36,5 +36,6 @@ Friday before, if Sunday, then Monday after)
 
 Time Spent:
 
-..* October 3rd: 1 hour (including computer setup)
-..* October 6th: 2 hours (project structure, objects, unit tests)
+* October 3rd: 1 hour (computer/project setup, problem review)
+* October 6th: 2 hours (project structure, objects, initial unit tests)
+* October 8th: 1.5 hours (charge calculations, partial date calculations)

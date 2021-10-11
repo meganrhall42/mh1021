@@ -39,7 +39,7 @@ public class CheckoutService {
 	
 	private static void validateCheckout(Checkout checkout) throws DayCountException, DiscountException {
 		if(checkout.getRentalDayCount() < 1) {
-			throw new DayCountException("Rental Day Count must be great than 1.");
+			throw new DayCountException("Rental Day Count must be 1 or greater.");
 		}
 		
 		if(checkout.getDiscount() > 100 || checkout.getDiscount() < 0) {

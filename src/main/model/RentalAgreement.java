@@ -101,6 +101,7 @@ public class RentalAgreement {
 		
 		str.append("Tool code: " + tool.getToolCode() + "\n");
 		str.append("Tool type: " + tool.getType().getType() + "\n");
+		str.append("Tool brand: " + tool.getBrand() + "\n");
 		str.append("Rental days: " + checkout.getRentalDayCount() + "\n");
 		str.append("Check out date: " + DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).format(checkout.getCheckoutDate()) + "\n");
 		str.append("Due date: " + DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).format(dueDate) + "\n");

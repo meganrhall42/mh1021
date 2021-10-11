@@ -40,3 +40,4 @@ Time Spent:
 * October 6th: 2 hours (project structure, objects, initial unit tests)
 * October 8th: 1.5 hours (charge calculations, partial date calculations)
 * October 10th: 1 hour (charge day count calculator)
+* October 11th: 1 hour (finish checkout service, finalize)

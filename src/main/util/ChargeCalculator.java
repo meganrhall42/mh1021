@@ -10,8 +10,10 @@ public class ChargeCalculator {
 	 * half up to cents
 	 */
 	public static double calculatePreDiscountCharge(int chargeDays, double dailyCharge) {
+		BigDecimal convertedChargeDays = BigDecimal.valueOf(chargeDays);
+		BigDecimal convertedDailyCharge = BigDecimal.valueOf(dailyCharge);
 		
-		return (chargeDays * dailyCharge);
+		return (convertedChargeDays.multiply(convertedDailyCharge)).doubleValue();
 	}
 	
 	/*
@@ -25,7 +27,7 @@ public class ChargeCalculator {
 		BigDecimal discountAsPercent = convertedDiscount.divide(BigDecimal.valueOf(100));
 		BigDecimal unrounded = discountAsPercent.multiply(convertedPreDiscountCharge);
 		BigDecimal rounded = unrounded.setScale(2, RoundingMode.HALF_UP);
-		
+	
 		return rounded.doubleValue();
 	}
 	
@@ -33,7 +35,9 @@ public class ChargeCalculator {
 	 * Final charge - Calculated as pre-discount charge - discount amount.
 	 */
 	public static double calculateFinalCharge(double preDiscountCharge, double discountAmount) {
+		BigDecimal convertedPreDiscount = BigDecimal.valueOf(preDiscountCharge);
+		BigDecimal convertedDiscount = BigDecimal.valueOf(discountAmount);
 		
-		return (preDiscountCharge - discountAmount);
+		return (convertedPreDiscount.subtract(convertedDiscount)).doubleValue();
 	}
 }

@@ -13,9 +13,8 @@ import main.util.DateCalculator;
 
 public class CheckoutService {
 
-	public static RentalAgreement processCheckout(Checkout checkout) { //throws DiscountException, DayCountException
-		//TODO fully use later
-		//validateCheckout(checkout);
+	public static RentalAgreement processCheckout(Checkout checkout) throws DiscountException, DayCountException {
+		validateCheckout(checkout);
 		RentalAgreement agreement = generateRentalAgreement(checkout);
 		
 		return agreement;

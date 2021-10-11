@@ -1,6 +1,9 @@
 package main.model;
 
+import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
 public class RentalAgreement {
 
@@ -93,10 +96,23 @@ public class RentalAgreement {
 
 	@Override
 	public String toString() {
-		//TODO: Change to fit desired format
-		return "RentalAgreement [tool=" + tool + ", checkout=" + checkout + ", dueDate=" + dueDate
-				+ ", dailyRentalCharge=" + dailyRentalCharge + ", chargeDays=" + chargeDays + ", prediscountCharge="
-				+ prediscountCharge + ", discountAmount=" + discountAmount + ", finalCharge=" + finalCharge + "]";
+		StringBuilder str = new StringBuilder();
+		NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
+		
+		str.append("Tool code: " + tool.getToolCode() + "\n");
+		str.append("Tool type: " + tool.getType().getType() + "\n");
+		str.append("Rental days: " + checkout.getRentalDayCount() + "\n");
+		str.append("Check out date: " + DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).format(checkout.getCheckoutDate()) + "\n");
+		str.append("Due date: " + DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).format(dueDate) + "\n");
+		str.append("Daily rental charge: " + currencyFormat.format(dailyRentalCharge) + "\n");
+		str.append("Charge days: " + chargeDays + "\n");
+		str.append("Prediscount charge: " + currencyFormat.format(prediscountCharge) + "\n");
+		str.append("Discount percent: " + checkout.getDiscount() + "%\n");
+		str.append("Discount amount: " + currencyFormat.format(discountAmount) + "\n");
+		str.append("Final charge: " + currencyFormat.format(finalCharge) + "\n");
+		
+		
+		return str.toString();
 	}
 	
 }

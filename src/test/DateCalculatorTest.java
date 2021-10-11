@@ -40,8 +40,24 @@ public class DateCalculatorTest {
 	}
 	
 	@Test
-	public void testIsIndependenceDay() {
+	public void testIsIndependenceDayWeekday() {
+		LocalDate date = LocalDate.of(2019, 7, 4);
+		boolean isHoliday = DateCalculator.checkIfHoliday(date);
+		
+		assertTrue(isHoliday);
+	}
+	
+	@Test
+	public void testIsIndependenceDayWeekend() {
 		LocalDate date = LocalDate.of(2020, 7, 4);
+		boolean isHoliday = DateCalculator.checkIfHoliday(date);
+		
+		assertFalse(isHoliday);
+	}
+	
+	@Test
+	public void testIsObservedIndependenceDay() {
+		LocalDate date = LocalDate.of(2020, 7, 3);
 		boolean isHoliday = DateCalculator.checkIfHoliday(date);
 		
 		assertTrue(isHoliday);
@@ -70,6 +86,7 @@ public class DateCalculatorTest {
 		
 		int chargeDays = DateCalculator.calculateChargeDays(checkoutDate, dueDate, ToolType.LADDER);
 		
+		assertEquals(2, chargeDays);
 	}
 	
 	@Test
@@ -79,6 +96,7 @@ public class DateCalculatorTest {
 		
 		int chargeDays = DateCalculator.calculateChargeDays(checkoutDate, dueDate, ToolType.CHAINSAW);
 		
+		assertEquals(3, chargeDays);
 	}
 	
 	@Test
@@ -88,6 +106,6 @@ public class DateCalculatorTest {
 		
 		int chargeDays = DateCalculator.calculateChargeDays(checkoutDate, dueDate, ToolType.JACKHAMMER);
 		
-		
+		assertEquals(4, chargeDays);
 	}
 }

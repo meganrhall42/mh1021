@@ -39,3 +39,4 @@ Time Spent:
 * October 3rd: 1 hour (computer/project setup, problem review)
 * October 6th: 2 hours (project structure, objects, initial unit tests)
 * October 8th: 1.5 hours (charge calculations, partial date calculations)
+* October 10th: 1 hour (charge day count calculator)

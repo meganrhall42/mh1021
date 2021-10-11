@@ -20,7 +20,7 @@ public class Checkout {
 	}
 	
 	private LocalDate convertStringToDate(String stringDate) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/y");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yy");
 		return LocalDate.parse(stringDate, formatter);
 	}
 

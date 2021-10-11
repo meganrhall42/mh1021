@@ -17,9 +17,10 @@ public enum ToolType {
 		this.type = type;
 		this.dailyCharge = dailyCharge;
 		this.weekdayCharge = weekdayCharge;
+		this.weekendCharge = weekendCharge;
 		this.holidayCharge = holidayCharge;
 	}
-	
+
 	public String getType() {
 		return type;
 	}
@@ -59,7 +60,6 @@ public enum ToolType {
 	public void setHolidayCharge(boolean holidayCharge) {
 		this.holidayCharge = holidayCharge;
 	}
-
 	
 
 }

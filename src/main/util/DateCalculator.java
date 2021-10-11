@@ -23,9 +23,33 @@ public class DateCalculator {
 		excluding “no charge” days as specified by the tool type
 	 */
 	public static int calculateChargeDays(LocalDate checkoutDate, LocalDate dueDate, ToolType type) {
-
+		int chargeDayCount = 0;
 		
-		return 0;
+		//Start count at day after checkout
+		LocalDate testDate = checkoutDate.plusDays(1);
+
+		//Check every day until we reach the due date
+		while(!testDate.isAfter(dueDate)) {
+			if(checkIfHoliday(testDate)) {
+				//add a charge day if tool has a holiday charge and date is a holiday
+				if(type.isHolidayCharge()) {
+					chargeDayCount ++;
+				}
+			} else {
+				boolean isWeekend = checkIfWeekend(testDate);
+				if(type.isWeekdayCharge() && !isWeekend) {
+					//add a charge day if tool has a weekday charge and date is a weekday
+					chargeDayCount ++;
+				} else if(type.isWeekendCharge() && isWeekend) {
+					//add a charge day if tool has a weekend charge and date is a weekend
+					chargeDayCount ++;
+				} 
+			}
+				
+			testDate = testDate.plusDays(1);
+		}
+
+		return chargeDayCount;
 	}
 	
 	public static boolean checkIfWeekend(LocalDate date) {
@@ -34,9 +58,17 @@ public class DateCalculator {
 	}
 	
 	public static boolean checkIfHoliday(LocalDate date) {	
+		int dayOfTheMonth = date.getDayOfMonth();
+		LocalDate julyFourth = LocalDate.of(date.getYear(), 7, 4);
 		
-		if(date.getMonth() == Month.JULY && date.getDayOfMonth() == 4) {
-			// Independence Day, July 4th
+		if(date.equals(julyFourth) && !checkIfWeekend(date)) {
+			// Independence Day, July 4th - If falls on weekend, it is observed on the closest weekday
+			return true;
+		} else if(date.getMonth() == Month.JULY && dayOfTheMonth == 3 && julyFourth.getDayOfWeek() == DayOfWeek.SATURDAY) {
+			//If Independence Day falls on Sat, observed on the Friday before
+			return true;
+		} else if(date.getMonth() == Month.JULY && dayOfTheMonth == 5 && julyFourth.getDayOfWeek() == DayOfWeek.SUNDAY) {
+			//If Independence Day falls on Sun, observed on the Monday after
 			return true;
 		} else if(date.getMonth() == Month.SEPTEMBER) {
 			//Labor Day - First Monday in September
